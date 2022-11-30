@@ -1,53 +1,29 @@
-import { Pressable, StyleSheet, Text, View } from 'react-native'
+import { FlatList } from 'react-native'
 import React from 'react'
+import GridItem from '../components/GridItem'
+import { Categories } from '../data/categories'
 
-const CategoriesScreen = ({navigation}) => {
+const CategoriesScreen = ({ navigation }) => {
+
+    const handleSelectedCategory = (item) => {
+        navigation.navigate('Pan', {
+            categoryID: item.id,
+            name: item.title,
+        })
+    }
+
+    const renderGridItem = ({ item }) => (
+        <GridItem item={item} onSelected={handleSelectedCategory} />
+    )
+
     return (
-        <View style={styles.container}>
-            <Text style={styles.title}>PRODUCTOS</Text>
-            <Pressable 
-            onPress={() => navigation.navigate('Pan')}
-            style={styles.button}>
-                <Text>PAN</Text>
-            </Pressable>
-
-            <Pressable 
-            onPress={() => navigation.navigate('Facturas')}
-            style={styles.button}>
-                <Text>FACTURAS</Text>
-            </Pressable>
-
-            <Pressable 
-            onPress={() => navigation.navigate('Tortas y Postres')}
-            style={styles.button}>
-                <Text>TORTAS Y POSTRES</Text>
-            </Pressable>
-
-        </View>
+        <FlatList
+            data={Categories}
+            keyExtractor={(item) => item.id}
+            renderItem={renderGridItem}
+            numColumns={2}
+        />
     )
 }
 
 export default CategoriesScreen
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#D5BDAF',
-        alignItems: 'center',
-    },
-
-    title: {
-        fontFamily: 'FiraSans',
-        marginTop: 50,
-    },
-
-    button: {
-        height: 35,
-        width: '40%',
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderRadius: 12,
-        marginTop: 10,
-        backgroundColor: '#F5EBE0'
-    }
-})

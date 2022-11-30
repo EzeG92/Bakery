@@ -4,7 +4,7 @@ import React from 'react'
 const BreadDetailsScreen = () => {
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Detalle de Pan</Text>
+            <Text style={styles.title}></Text>
         </View>
     )
 }
